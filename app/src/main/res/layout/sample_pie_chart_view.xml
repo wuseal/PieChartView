@@ -10,7 +10,7 @@
         android:background="#ccc"
         android:paddingBottom="40dp"
         android:paddingLeft="20dp"
-        app:circleRadius="150dp"
+        app:circleRadius="100dp"
         app:textSize="13sp" />
 
 </FrameLayout>
