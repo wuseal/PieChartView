@@ -9,6 +9,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class PieChartView extends View {
     /**
      * 记录文字大小
      */
-    private float mTextSize = 24;
+    private float mTextSize = 14;
 
     /**
      * 饼图所占矩形区域（不包括文字）
@@ -98,7 +99,8 @@ public class PieChartView extends View {
     }
 
     private void invalidateTextPaintAndMeasurements() {
-        mTextPaint.setTextSize(mTextSize);
+
+        mTextPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mTextSize, getContext().getResources().getDisplayMetrics()));
 
         Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
         mTextHeight = fontMetrics.descent - fontMetrics.ascent;
@@ -180,7 +182,7 @@ public class PieChartView extends View {
     /**
      * Gets the example dimension attribute value.
      *
-     * @return The example dimension attribute value.
+     * @return The example dimension attribute value.(sp)
      */
     public float getTextSize() {
         return mTextSize;
@@ -190,7 +192,7 @@ public class PieChartView extends View {
      * Sets the view's text dimension attribute value. In the PieChartView view, this dimension
      * is the font size.
      *
-     * @param textSize The text dimension attribute value to use.
+     * @param textSize The text dimension attribute value to use.(sp)
      */
     public void setTextSize(float textSize) {
         mTextSize = textSize;
@@ -253,9 +255,9 @@ public class PieChartView extends View {
     /**
      * 绘制标注线和标记文字
      *
-     * @param canvas
-     * @param color
-     * @param rotateAngel
+     * @param canvas      画布
+     * @param color       标记的颜色
+     * @param rotateAngel 标记线和水平相差旋转的角度
      */
     protected void drawMarkerLineAndText(Canvas canvas, int color, float rotateAngel, String text) {
         Paint paint = new Paint();
