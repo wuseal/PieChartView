@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -21,7 +20,6 @@ import java.util.List;
  * Created By: Seal.Wu
  */
 public class PieChartView extends View {
-    private Drawable mExampleDrawable;
 
     private TextPaint mTextPaint;
     private float mTextWidth;
@@ -78,13 +76,7 @@ public class PieChartView extends View {
                 R.styleable.PieChartView_circleRadius,
                 pieChartCircleRadius);
 
-        mTextSize = a.getDimension(R.styleable.PieChartView_textSize, mTextSize);
-
-        if (a.hasValue(R.styleable.PieChartView_exampleDrawable)) {
-            mExampleDrawable = a.getDrawable(
-                    R.styleable.PieChartView_exampleDrawable);
-            mExampleDrawable.setCallback(this);
-        }
+        mTextSize = a.getDimension(R.styleable.PieChartView_textSize, mTextSize)/getResources().getDisplayMetrics().density;
 
         a.recycle();
 
@@ -131,23 +123,6 @@ public class PieChartView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        // TODO: consider storing these as member variables to reduce
-        // allocations per draw cycle.
-        int paddingLeft = getPaddingLeft();
-        int paddingTop = getPaddingTop();
-        int paddingRight = getPaddingRight();
-        int paddingBottom = getPaddingBottom();
-
-        int contentWidth = getWidth() - paddingLeft - paddingRight;
-        int contentHeight = getHeight() - paddingTop - paddingBottom;
-
-        // Draw the example drawable on top of the text.
-        if (mExampleDrawable != null) {
-            mExampleDrawable.setBounds(paddingLeft, paddingTop,
-                    paddingLeft + contentWidth, paddingTop + contentHeight);
-            mExampleDrawable.draw(canvas);
-        }
 
         initPieChartCircleRectF();
 
@@ -200,26 +175,6 @@ public class PieChartView extends View {
     }
 
     /**
-     * Gets the example drawable attribute value.
-     *
-     * @return The example drawable attribute value.
-     */
-    public Drawable getExampleDrawable() {
-        return mExampleDrawable;
-    }
-
-    /**
-     * Sets the view's example drawable attribute value. In the example view, this drawable is
-     * drawn above the text.
-     *
-     * @param exampleDrawable The example drawable attribute value to use.
-     */
-    public void setExampleDrawable(Drawable exampleDrawable) {
-        mExampleDrawable = exampleDrawable;
-    }
-
-
-    /**
      * 设置饼状图要显示的数据
      *
      * @param data 列表数据
@@ -245,6 +200,7 @@ public class PieChartView extends View {
     protected void drawSector(Canvas canvas, int color, float startAngle, float sweepAngle) {
 
         Paint paint = new Paint();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(color);
 
@@ -261,6 +217,7 @@ public class PieChartView extends View {
      */
     protected void drawMarkerLineAndText(Canvas canvas, int color, float rotateAngel, String text) {
         Paint paint = new Paint();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(color);
 
