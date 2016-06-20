@@ -1,7 +1,7 @@
 # PieChartView
 ####饼状图图形报表控件，可自行设定多种参数
 
-<img src="https://github.com/wuseal/PieChartView/blob/master/demo.png?raw=true" alt="alt text" style="width:200;height:200">
+<img src="https://github.com/wuseal/PieChartView/blob/master/demo.png?raw=true" alt="alt text" width="540" height="960">
 
 ##使用方法，将PieChartView类和attr_pie_chart_view.xml文件直接拷贝到工程下，然后直接在xml布局中使用既可
 ```xml
